@@ -154,4 +154,21 @@ class UserController extends MyController
     }
 
 
+    /**
+     *   登出
+     */
+    public function actionLoginOut()
+    {
+        try {
+            $AdminUserModel = new User();
+            $userObj = $AdminUserModel->findByName($this->loginInfo['id']);
+            $postData = array(
+                'token' => "",
+            );
+            $userObj->add($postData);
+            $this->sendJson();
+        } catch (MyException $e) {
+            echo $e->toJson($e->getMessage());
+        }
+    }
 }
