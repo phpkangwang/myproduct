@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d115e1ca-3ae0-4e6d-bef1-9668821798ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/AdminNationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/DentalExhibitionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/MenuController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/NetMeetingController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/NewsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/ProductController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/QuestionAnswerController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/SinglePageController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/VideoController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/WebFootController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nationWeb/frontend/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/nationWeb/frontend/controllers/UserController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nationWeb/frontend/controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="163" column="50" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="50" />
+            <state relative-caret-position="241">
+              <caret line="162" column="41" lean-forward="true" selection-start-line="162" selection-start-column="41" selection-end-line="162" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -140,13 +129,6 @@
               <item name="nationWeb" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="myproduct" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myproduct" type="462c0819:PsiDirectoryNode" />
-              <item name="nationWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -187,7 +169,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587941253012</updated>
-      <workItem from="1587941254188" duration="1039000" />
+      <workItem from="1587941254188" duration="1544000" />
     </task>
     <task id="LOCAL-00001" summary="测试提交">
       <created>1587941324270</created>
@@ -196,24 +178,37 @@
       <option name="project" value="LOCAL" />
       <updated>1587941324270</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="前端代码">
+      <created>1587942306807</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587942306807</updated>
+    </task>
+    <task id="LOCAL-00003" summary="前端代码">
+      <created>1587942393897</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1587942393897</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1039000" />
+    <option name="totallyTimeSpent" value="1544000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15778251" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" visible="true" weight="0.29144096" />
+      <window_info anchor="bottom" id="Version Control" sideWeight="0.49946696" visible="true" weight="0.29144096" />
       <window_info anchor="bottom" id="Terminal" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50053304" side_tool="true" visible="true" weight="0.29144096" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -232,7 +227,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="测试提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试提交" />
+    <MESSAGE value="前端代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="前端代码" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/nationWeb/api_doc/swagger.json">
@@ -268,8 +264,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nationWeb/frontend/controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="163" column="50" selection-start-line="163" selection-start-column="40" selection-end-line="163" selection-end-column="50" />
+        <state relative-caret-position="241">
+          <caret line="162" column="41" lean-forward="true" selection-start-line="162" selection-start-column="41" selection-end-line="162" selection-end-column="41" />
         </state>
       </provider>
     </entry>
