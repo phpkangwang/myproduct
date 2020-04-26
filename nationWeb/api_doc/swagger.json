@@ -1,0 +1,2467 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "后台用户权限解释：用户有2个字段 role（角色权限），nation（属于哪个国家）,所有带国家的操作（例产品和新闻），角色是1（超级管理员）的可以操作所有，角色是2（普通管理员）只能修改用户信息nation和产品nation相等的数据",
+        "description": "",
+        "version": "1.0.0"
+    },
+    "host": "127.0.0.1/nationWeb",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/frontend/web/user/register": {
+            "get": {
+                "summary": "前端--账号注册",
+                "description": "前端得验证邮件格式，注册成功会发送一封告诉你密码的邮件",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "邮件",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--登陆注册"
+                ]
+            }
+        },
+
+
+         "/frontend/web/user/password-change": {
+            "get": {
+                "summary": "前端--修改密码",
+                "description": "只能通过邮箱来修改密码，调用这个接口会发一封带新密码的邮件",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email格式",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--登陆注册"
+                ]
+            }
+        },
+
+        "/frontend/web/user/user-info": {
+            "get": {
+                "summary": "前端--获取用户信息基本信息",
+                "description": " 暂时只有一个token可以用，token代表这个用户登陆后的权限，每次登陆token会刷新",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--登陆注册"
+                ]
+            }
+        },
+
+        "/frontend/web/user/contact-us-add": {
+            "get": {
+                "summary": "前端--联系我们",
+                "description": " 这个功能只有登陆后才能使用 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "query",
+                        "description": "性别 1男 2女 3未知",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "字符串，限制长度在50以内",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "job",
+                        "in": "query",
+                        "description": "字符串，限制长度在50以内",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "邮箱格式",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "region",
+                        "in": "query",
+                        "description": "地区，字符串，限制长度在50以内",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "国家，字符串，限制长度在50以内",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "description": "国家，字符串，限制长度在250以内",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--登陆注册"
+                ]
+            }
+        },
+        "/frontend/web/user/login": {
+            "get": {
+                "summary": "前端--登陆",
+                "description": "每次登陆会刷新token，网站自动登陆就不要调用这个借口了，通过cookie里面的token值直接调用获取用户信息接口",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "邮箱",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密码",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--登陆注册"
+                ]
+            }
+        },
+        "/frontend/web/education/shape-base-add": {
+            "get": {
+                "summary": "前端--课程预约--添加",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "firstName",
+                        "in": "query",
+                        "description": "姓",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "secondName",
+                        "in": "query",
+                        "description": "名",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "job",
+                        "in": "query",
+                        "description": "工作",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "邮件",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "province",
+                        "in": "query",
+                        "description": "国家",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "labName",
+                        "in": "query",
+                        "description": "实验室名称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "labPeopleNum",
+                        "in": "query",
+                        "description": "实验室人数",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cdt_num",
+                        "in": "query",
+                        "description": "CDT数量",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--教育"
+                ]
+            }
+        },
+        "/frontend/web/education/shape-base-page": {
+            "get": {
+                "summary": "前端--课程预约--分页获取列表",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "姓",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "名",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "前端--教育"
+                ]
+            }
+        },
+
+        "/backend/web/user/login": {
+            "get": {
+                "summary": "后台--用户--登陆",
+                "description": " 添加后台用户 ",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "账号",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密码",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+
+        "/backend/web/user/login-out": {
+            "get": {
+                "summary": "后台--用户--登出",
+                "description": " 添加后台用户 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+
+        "/backend/web/user/login-info": {
+            "get": {
+                "summary": "后台--用户--获取登陆用户信息",
+                "description": " 添加后台用户 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+
+        "/backend/web/user/table-list": {
+            "get": {
+                "summary": "后台--用户--列表",
+                "description": " 后台用户列表 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+
+        "/backend/web/user/add": {
+            "get": {
+                "summary": "后台--用户--添加",
+                "description": " 添加后台用户 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "账号",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nickName",
+                        "in": "query",
+                        "description": "昵称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "密码",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "角色",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+        "/backend/web/user/update": {
+            "get": {
+                "summary": "后台--用户--修改",
+                "description": " 添加后台用户 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "账号",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nickName",
+                        "in": "query",
+                        "description": "昵称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "角色",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+        "/backend/web/user/del": {
+            "get": {
+                "summary": "后台--用户--删除",
+                "description": " 删除后台用户 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--用户"
+                ]
+            }
+        },
+
+        "/backend/web/site/upload-file": {
+            "get": {
+                "summary": "后台--图片上传",
+                "description": " 这种图片上传类似 input type=file，这钟格式上传，name= file，一次只能上传一张图片，上传图片成功后会返回图片地址，请保存，然后其他接口需要这地址 ",
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "query",
+                        "description": "图片插件name是file",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--图片上传"
+                ]
+            }
+        },
+
+
+
+        "/backend/web/menu/add": {
+            "get": {
+                "summary": "后台--菜单--添加",
+                "description": " 添加菜单 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "菜单id",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "parentId",
+                        "in": "query",
+                        "description": "一级菜单填0，二级及一下填上级菜单id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "菜单名称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pathName",
+                        "in": "query",
+                        "description": "菜单点击跳转地址",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "imageUrl",
+                        "in": "query",
+                        "description": "菜单图片地址",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "path",
+                        "in": "query",
+                        "description": "path",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "alias",
+                        "in": "query",
+                        "description": "菜单别名",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "out_link",
+                        "in": "query",
+                        "description": "外链",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "菜单排序从小到大排序 1在最上面",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--菜单"
+                ]
+            }
+        },
+
+        "/backend/web/menu/del": {
+            "get": {
+                "summary": "后台--菜单--删除",
+                "description": " 删除后台菜单 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "菜单id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--菜单"
+                ]
+            }
+        },
+
+        "/backend/web/menu/table-list": {
+            "get": {
+                "summary": "后台--菜单--列表",
+                "description": " 添加菜单 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--菜单"
+                ]
+            }
+        },
+
+
+        "/backend/web/product/add": {
+            "get": {
+                "summary": "后台--产品--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口，传产品id代表修改，不穿产品id代表新增。关于nation这个字段的意思市嗲表这条数据实在那个国家页面显示，1通用国家 2美国",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传产品id代表修改，不穿产品id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "产品名称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "menuId与菜单id绑定，代表是哪一个菜单下面的产品",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "图片地址，图片统一先上传返回一个地址，多个图片逗号隔开",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "data",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "content",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--产品"
+                ]
+            }
+        },
+
+        "/backend/web/product/update": {
+            "get": {
+                "summary": "后台--产品--修改",
+                "description": " 支持修改任何字段",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传产品id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "xxxxxxx",
+                        "in": "query",
+                        "description": "需要修改什么字段就传什么字段",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--产品"
+                ]
+            }
+        },
+
+        "/backend/web/product/del": {
+            "get": {
+                "summary": "后台--产品--删除",
+                "description": " 删除后台产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "产品id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--产品"
+                ]
+            }
+        },
+
+        "/backend/web/product/table-list": {
+            "get": {
+                "summary": "后台--产品--列表",
+                "description": " 产品列表，获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--产品"
+                ]
+            }
+        },
+
+        "/backend/web/product/page": {
+            "get": {
+                "summary": "后台--产品--列表分页",
+                "description": " 产品列表，分页  获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "支持 产品id搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "支持产品名称搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "支持 产品 菜单id分类搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "shelve",
+                        "in": "query",
+                        "description": "上架 搜索 1上架 2下架",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "recommend",
+                        "in": "query",
+                        "description": "推荐 搜索 1推荐 2不推荐",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--产品"
+                ]
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        "/backend/web/video/add": {
+            "get": {
+                "summary": "后台--视频管理--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口，传产品id代表修改，不穿产品id代表新增。关于nation这个字段的意思市嗲表这条数据实在那个国家页面显示，1通用国家 2美国",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传产品id代表修改，不穿产品id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "标题",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "menuId与菜单id绑定，代表是哪一个菜单下面的产品",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "data",
+                        "in": "query",
+                        "description": "data",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "type  1普通视频 2Banner视频 3弹窗视频",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "videoUrl",
+                        "in": "query",
+                        "description": "videoUrl",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "imageUrl",
+                        "in": "query",
+                        "description": "imageUrl",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--视频管理"
+                ]
+            }
+        },
+
+        "/backend/web/video/update": {
+            "get": {
+                "summary": "后台--视频管理--修改",
+                "description": " 支持修改任何字段",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传产品id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "xxxxxxx",
+                        "in": "query",
+                        "description": "需要修改什么字段就传什么字段",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--视频管理"
+                ]
+            }
+        },
+
+        "/backend/web/video/del": {
+            "get": {
+                "summary": "后台--视频管理--删除",
+                "description": " 删除后台产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "产品id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--视频管理"
+                ]
+            }
+        },
+
+        "/backend/web/video/table-list": {
+            "get": {
+                "summary": "后台--视频管理--列表",
+                "description": " 产品列表，获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--视频管理"
+                ]
+            }
+        },
+
+        "/backend/web/video/page": {
+            "get": {
+                "summary": "后台--视频管理--列表分页",
+                "description": " 产品列表，分页  获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "支持 产品id搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "支持 产品 菜单id分类搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "1普通视频 2Banner视频 3弹窗视频",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "标题 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--视频管理"
+                ]
+            }
+        },
+
+
+        "/backend/web/file/add": {
+            "get": {
+                "summary": "后台--文件管理--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口，传id代表修改，不传id代表新增。关于nation这个字段的意思市嗲表这条数据实在那个国家页面显示，1通用国家 2美国",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传产品id代表修改，不穿产品id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "url",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--文件管理"
+                ]
+            }
+        },
+
+        "/backend/web/file/update": {
+            "get": {
+                "summary": "后台--文件管理--修改",
+                "description": " 支持修改任何字段",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "xxxxxxx",
+                        "in": "query",
+                        "description": "需要修改什么字段就传什么字段",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--文件管理"
+                ]
+            }
+        },
+
+        "/backend/web/file/del": {
+            "get": {
+                "summary": "后台--文件管理--删除",
+                "description": " 删除后台产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--文件管理"
+                ]
+            }
+        },
+
+        "/backend/web/file/table-list": {
+            "get": {
+                "summary": "后台--文件管理--列表",
+                "description": " 产品列表，获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--文件管理"
+                ]
+            }
+        },
+
+        "/backend/web/file/page": {
+            "get": {
+                "summary": "后台--文件管理--列表分页",
+                "description": " 产品列表，分页  获取所有的产品 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "支持 产品id搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "支持产品名称搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--文件管理"
+                ]
+            }
+        },
+
+
+
+
+
+
+        "/backend/web/news/add": {
+            "get": {
+                "summary": "后台--新闻--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口，传新闻id代表修改，不穿新闻id代表新增。  nation 用户字段是1的 可以添加所有（传递nation参数），不是1的只能添加对应国家（不穿nation参数，默认用户身上nation字段） ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传新闻id代表修改，不穿新闻id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "新闻名称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "content",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--新闻"
+                ]
+            }
+        },
+
+        "/backend/web/news/del": {
+            "get": {
+                "summary": "后台--新闻--删除",
+                "description": " 删除后台新闻, 用户字段是1的 可以删除所有，不是1的只能删除对应国家的 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "新闻id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--新闻"
+                ]
+            }
+        },
+
+        "/backend/web/news/table-list": {
+            "get": {
+                "summary": "后台--新闻--列表",
+                "description": " 新闻列表，获取所有的新闻 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--新闻"
+                ]
+            }
+        },
+
+        "/backend/web/news/page": {
+            "get": {
+                "summary": "后台--新闻--列表分页",
+                "description": " 新闻列表，分页  获取所有的新闻 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "支持新闻title 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "支持  状态 搜索 1可用 2不可用",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "top",
+                        "in": "query",
+                        "description": "支持  是否在首页显示 搜索 1可用 2不可用（该功能主要市首页显示新闻的条件）",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--新闻"
+                ]
+            }
+        },
+        "/backend/web/admin-nation/add": {
+            "get": {
+                "summary": "后台--用户国家--添加修改",
+                "description": " 为了更方便配置每个用户属于哪个国家，后台添加一个国家的配置，每个后台用户nation字段都是这个表里面的id，用来区分是哪个国家的管理员，后台默认直接取这个国家里数据, 1一定要是默认国家不能修改",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "国家id",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "国家名称，自己配置",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--国家"
+                ]
+            }
+        },
+
+        "/backend/web/admin-nation/del": {
+            "get": {
+                "summary": "后台--用户国家--删除",
+                "description": " 为了保证 用户不出现不存在的 国家（误删），这个方法 不开启",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "国家id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--国家"
+                ]
+            }
+        },
+
+        "/backend/web/admin-nation/table-list": {
+            "get": {
+                "summary": "后台--用户国家--列表",
+                "description": " 用户国家列表 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--国家"
+                ]
+            }
+        },
+        "/backend/web/question-answer/add": {
+            "get": {
+                "summary": "后台--问答--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口，传问答id代表修改，不传问答id代表新增。",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传问答id代表修改，不穿问答id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "description": "问题",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "description": "答案",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "传递表示字段值为填写值，不传递默认给用户身上国家,与用户权限相关",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--问答"
+                ]
+            }
+        },
+
+        "/backend/web/question-answer/del": {
+            "get": {
+                "summary": "后台--问答--删除",
+                "description": " 删除后台问答",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "问答id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--问答"
+                ]
+            }
+        },
+
+        "/backend/web/question-answer/table-list": {
+            "get": {
+                "summary": "后台--问答--列表",
+                "description": " 获取所有的问答 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--问答"
+                ]
+            }
+        },
+
+        "/backend/web/question-answer/page": {
+            "get": {
+                "summary": "后台--问答--列表分页",
+                "description": " 新闻列表，分页  获取所有的新闻 ",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "description": "问题 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "description": "答案 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--问答"
+                ]
+            }
+        },
+
+
+        "/backend/web/net-meeting/add": {
+            "get": {
+                "summary": "后台--网络研讨会--添加修改",
+                "description": " 应为添加和修改的页面一样，所以这两个页面的接口合成一个接口",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传id代表修改，不穿问答id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "会议标题",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "topic",
+                        "in": "query",
+                        "description": "演讲人",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "speaker",
+                        "in": "query",
+                        "description": "产品名称",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "content内容",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "会议地点",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "date 字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "time 字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--网络研讨会"
+                ]
+            }
+        },
+
+        "/backend/web/net-meeting/del": {
+            "get": {
+                "summary": "后台--网络研讨会--删除",
+                "description": " 删除",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--网络研讨会"
+                ]
+            }
+        },
+
+        "/backend/web/net-meeting/table-list": {
+            "get": {
+                "summary": "后台--网络研讨会--列表",
+                "description": " 获取所有",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--网络研讨会"
+                ]
+            }
+        },
+
+        "/backend/web/net-meeting/page": {
+            "get": {
+                "summary": "后台--网络研讨会--列表分页",
+                "description": " 分页",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id 精确搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+
+                ],
+                "tags": [
+                    "后台--网络研讨会"
+                ]
+            }
+        },
+
+
+        "/backend/web/web-foot/add": {
+            "get": {
+                "summary": "后台--页脚信息--添加修改",
+                "description": "页脚信息是每个section有多条内容，这里每次添加是添加一条内容，查询的时候把同一个section数据处理一下就可以了，如果需要特殊数据结构在详聊",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传id代表修改，不传id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "属于哪一个页脚",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "list",
+                        "in": "query",
+                        "description": "list",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--页脚"
+                ]
+            }
+        },
+
+        "/backend/web/web-foot/del": {
+            "get": {
+                "summary": "后台--页脚--删除",
+                "description": " 删除",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--页脚"
+                ]
+            }
+        },
+
+        "/backend/web/web-foot/table-list": {
+            "get": {
+                "summary": "后台--页脚--列表",
+                "description": " 获取所有",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--页脚"
+                ]
+            }
+        },
+
+        "/backend/web/web-foot/page": {
+            "get": {
+                "summary": "后台--页脚--列表分页",
+                "description": " 分页",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "section",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--页脚"
+                ]
+            }
+        },
+
+
+
+        "/backend/web/dental-exhibition/add": {
+            "get": {
+                "summary": "后台--牙科展览--添加修改",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传id代表修改，不传id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "date 字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "time 字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "url",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "location",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--牙科展览"
+                ]
+            }
+        },
+
+        "/backend/web/dental-exhibition/del": {
+            "get": {
+                "summary": "后台--牙科展览--删除",
+                "description": " 删除",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--页脚"
+                ]
+            }
+        },
+
+        "/backend/web/dental-exhibition/table-list": {
+            "get": {
+                "summary": "后台--牙科展览--列表",
+                "description": " 获取所有",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--牙科展览"
+                ]
+            }
+        },
+
+        "/backend/web/dental-exhibition/page": {
+            "get": {
+                "summary": "后台--牙科展览--列表分页",
+                "description": " 分页",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "title 模糊搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--牙科展览"
+                ]
+            }
+        },
+
+
+
+        "/backend/web/single-page/add": {
+            "get": {
+                "summary": "后台--单页面--添加修改",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "传id代表修改，不传id代表新增",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "菜单id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "content",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--单页面"
+                ]
+            }
+        },
+
+        "/backend/web/single-page/del": {
+            "get": {
+                "summary": "后台--单页面--删除",
+                "description": " 删除",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--单页面"
+                ]
+            }
+        },
+
+        "/backend/web/single-page/table-list": {
+            "get": {
+                "summary": "后台--单页面--列表",
+                "description": " 获取所有",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--单页面"
+                ]
+            }
+        },
+
+        "/backend/web/single-page/page": {
+            "get": {
+                "summary": "后台--单页面--列表分页",
+                "description": " 分页",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "token值字符串",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageNo",
+                        "in": "query",
+                        "description": "第几页",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "一页多少条数据",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "menuId",
+                        "in": "query",
+                        "description": "菜单id",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "id搜索",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nation",
+                        "in": "query",
+                        "description": "支持国家筛选1通用国家 2美国3待定",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "后台--单页面"
+                ]
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    },
+    "definitions": {
+        "Product": {
+            "type": "object",
+            "properties": {
+                "product_id": {
+                    "type": "string",
+                    "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Description of product."
+                },
+                "display_name": {
+                    "type": "string",
+                    "description": "Display name of product."
+                },
+                "capacity": {
+                    "type": "string",
+                    "description": "Capacity of product. For example, 4 people."
+                },
+                "image": {
+                    "type": "string",
+                    "description": "Image URL representing the product."
+                }
+            }
+        },
+        "PriceEstimate": {
+            "type": "object",
+            "properties": {
+                "product_id": {
+                    "type": "string",
+                    "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles"
+                },
+                "currency_code": {
+                    "type": "string",
+                    "description": "[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code."
+                },
+                "display_name": {
+                    "type": "string",
+                    "description": "Display name of product."
+                },
+                "estimate": {
+                    "type": "string",
+                    "description": "Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or \"Metered\" for TAXI."
+                },
+                "low_estimate": {
+                    "type": "number",
+                    "description": "Lower bound of the estimated price."
+                },
+                "high_estimate": {
+                    "type": "number",
+                    "description": "Upper bound of the estimated price."
+                },
+                "surge_multiplier": {
+                    "type": "number",
+                    "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier."
+                }
+            }
+        },
+        "Profile": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "description": "First name of the Uber user."
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Last name of the Uber user."
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address of the Uber user"
+                },
+                "picture": {
+                    "type": "string",
+                    "description": "Image URL of the Uber user."
+                },
+                "promo_code": {
+                    "type": "string",
+                    "description": "Promo code of the Uber user."
+                }
+            }
+        },
+        "Activity": {
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "type": "string",
+                    "description": "Unique identifier for the activity"
+                }
+            }
+        },
+        "Activities": {
+            "type": "object",
+            "properties": {
+                "offset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Position in pagination."
+                },
+                "limit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of items to retrieve (100 max)."
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total number of items available."
+                },
+                "history": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Activity"
+                    }
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
