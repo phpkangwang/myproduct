@@ -161,7 +161,7 @@ class UserController extends MyController
     {
         try {
             $AdminUserModel = new User();
-            $userObj = $AdminUserModel->findByName($this->loginInfo['id']);
+            $userObj = $AdminUserModel->findByName($this->loginInfo['name']);
             $postData = array(
                 'token' => "",
             );
