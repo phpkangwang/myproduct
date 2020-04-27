@@ -54,7 +54,7 @@ class NetMeetingController extends MyController
                 'link_desc' => $linkDesc,
                 'nation' => $nation,
                 'create_time' => date("Y-m-d H:i:s",time()),
-            );//hahhahah w
+            );
              $Model->add($postData);
             $this->sendJson();
         } catch (MyException $e) {
