@@ -54,20 +54,24 @@ class ProductController extends MyController
 
     public function actionUpdate()
     {
-        if (
-            !isset($this->get['id'])
-        ) {
-            throw new MyException(ErrorCode::ERROR_PARAM);
+        try {
+            if (
+                !isset($this->post['id'])
+            ) {
+                throw new MyException(ErrorCode::ERROR_PARAM);
+            }
+            $Model =  Product::findOne($this->post['id']);
+            if( $this->loginInfo['role'] == 1 || $Model->nation == $this->loginInfo['nation']){
+            }else{
+                throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
+            }
+            $postData = $this->get;
+            unset($postData['token']);
+            $Model->add($postData);
+            $this->sendJson();
+        } catch (MyException $e) {
+            echo $e->toJson($e->getMessage());
         }
-        $Model =  Product::findOne($this->get['id']);
-        if( $this->loginInfo['role'] == 1 || $Model->nation == $this->loginInfo['nation']){
-        }else{
-            throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
-        }
-        $postData = $this->get;
-        unset($postData['token']);
-        $Model->add($postData);
-        $this->sendJson();
     }
     /**
      *    改变bannel显示状态

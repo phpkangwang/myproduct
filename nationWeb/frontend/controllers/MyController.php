@@ -48,6 +48,7 @@ class MyController extends Controller
     {
         $this->post = Yii::$app->request->post();
         $this->get = Yii::$app->request->get();
+        $this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : 1;
         //获取token信息
         $this->checkToken();
         parent::__construct($id, $module, $config);
@@ -72,7 +73,7 @@ class MyController extends Controller
             $obj = $UserModel->findBase($tokenArr['id']);
             //判断当前的token和数据库里面的token是否一致
             if( empty($obj) || $token != $obj['token']  ){
-                throw new MyException(ErrorCode::ERROR_TOKEN);
+                //throw new MyException(ErrorCode::ERROR_TOKEN);
             }
             $this->loginInfo = $obj;
         } catch (MyException $e) {

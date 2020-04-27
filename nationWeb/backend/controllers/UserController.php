@@ -67,21 +67,21 @@ class UserController extends MyController
     {
         try {
             if (
-                !isset($this->get['id']) ||
-                !isset($this->get['name']) ||
-                !isset($this->get['nickName']) ||
-                !isset($this->get['role'])
+                !isset($this->post['id']) ||
+                !isset($this->post['name']) ||
+                !isset($this->post['nickName']) ||
+                !isset($this->post['role'])
             ) {
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
-            $Obj = AdminUser::findOne($this->get['id']);
+            $Obj = AdminUser::findOne($this->post['id']);
             if( empty($Obj)){
                 throw new MyException(ErrorCode::ERROR_OBJ);
             }
             $postData = array(
-                'name' => $this->get['name'],
-                'nick_name' => $this->get['nickName'],
-                'role' => $this->get['role'],
+                'name' => $this->post['name'],
+                'nick_name' => $this->post['nickName'],
+                'role' => $this->post['role'],
             );
             $Obj->add($postData);
             $this->sendJson();
