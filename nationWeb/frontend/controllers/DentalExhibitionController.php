@@ -1,5 +1,5 @@
 <?php
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use common\models\DentalExhibition;
 use common\models\ErrorCode;

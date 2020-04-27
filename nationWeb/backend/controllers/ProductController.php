@@ -52,7 +52,7 @@ class ProductController extends MyController
         }
     }
 
-    public function update()
+    public function actionUpdate()
     {
         if (
             !isset($this->get['id'])
