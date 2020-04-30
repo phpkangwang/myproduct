@@ -12,7 +12,7 @@ class SinglePage extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%single_page}}';
+        return 'single_page';
     }
 
     /**

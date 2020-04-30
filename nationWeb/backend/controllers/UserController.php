@@ -50,6 +50,7 @@ class UserController extends MyController
                 'nick_name' => $this->post['nickName'],
                 'password' => $this->post['password'],
                 'role' => $this->post['role'],
+                'nation' => $this->post['nation'],
                 'create_time' => date("Y-m-d H:i:s",time()),
             );
             $AdminUserModel = new AdminUser();

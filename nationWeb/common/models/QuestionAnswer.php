@@ -19,7 +19,7 @@ class QuestionAnswer extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%question_answer}}';
+        return 'question_answer';
     }
 
     /**

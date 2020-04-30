@@ -19,7 +19,7 @@ class Menu extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%menu}}';
+        return 'menu';
     }
 
     /**
@@ -42,6 +42,6 @@ class Menu extends BaseModel
     }
 
     public function findByParentId($parentId){
-        self::find()->where(['parent_id'=>$parentId])->asArray()->orderBy('sort desc')->all();
+        return self::find()->where(['parent_id'=>$parentId])->asArray()->orderBy('sort desc')->all();
     }
 }

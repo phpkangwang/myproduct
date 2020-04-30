@@ -12,7 +12,7 @@ class NetMeeting extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%netmeeting}}';
+        return 'net_meeting';
     }
 
     /**
@@ -84,4 +84,5 @@ class NetMeeting extends BaseModel
         }
         return self::find()->where($where)->count();
     }
+
 }

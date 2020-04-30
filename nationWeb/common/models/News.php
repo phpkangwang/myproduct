@@ -12,7 +12,7 @@ class News extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%news}}';
+        return 'news';
     }
 
     /**

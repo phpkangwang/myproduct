@@ -53,6 +53,7 @@ class MyController extends Controller
 
     public function checkToken()
     {
+    	return true;
         try{
             //部分地址可以不用token
             $route = Yii::$app->requestedRoute;

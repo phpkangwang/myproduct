@@ -12,7 +12,7 @@ class WebFoot extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%web_foot}}';
+        return 'web_foot';
     }
 
     /**

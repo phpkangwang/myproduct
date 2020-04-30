@@ -12,7 +12,7 @@ class Video extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%video}}';
+        return 'video';
     }
 
     /**
