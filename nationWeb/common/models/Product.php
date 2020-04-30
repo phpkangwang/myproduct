@@ -82,9 +82,14 @@ class Product extends BaseModel
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
 			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
-			$MenuIdArr = array_column($MenuObjs,'id');
-			$inStr = "'" . implode("','", $MenuIdArr) . "'";
-			$where .= " and menu_id in ({$inStr})";
+			if( empty($MenuObjs) ){
+				$where .= " and menu_id = {$postData['parentMenuId']}";
+			}else{
+				$MenuIdArr = array_column($MenuObjs,'id');
+				$inStr = "'" . implode("','", $MenuIdArr) . "'";
+				$where .= " and menu_id in ({$inStr})";
+			}
+
 		}
         return self::find()->joinWith('menu')->where($where)->offset($offset)->limit($limit)->orderBy('id desc')->asArray()->all();
     }
@@ -124,9 +129,14 @@ class Product extends BaseModel
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
 			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
-			$MenuIdArr = array_column($MenuObjs,'id');
-			$inStr = "'" . implode("','", $MenuIdArr) . "'";
-			$where .= " and menu_id in ({$inStr})";
+			if( empty($MenuObjs) ){
+				$where .= " and menu_id = {$postData['parentMenuId']}";
+			}else{
+				$MenuIdArr = array_column($MenuObjs,'id');
+				$inStr = "'" . implode("','", $MenuIdArr) . "'";
+				$where .= " and menu_id in ({$inStr})";
+			}
+
 		}
         return self::find()->where($where)->count();
     }
