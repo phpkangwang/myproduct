@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\ErrorCode;
+use common\models\File;
 use common\models\MyException;
 use common\models\NetMeeting;
 use common\models\Product;
@@ -9,32 +10,24 @@ use common\models\Product;
 /**
  * Site controller
  */
-class NetMeetingController extends MyController
+class FileController extends MyController
 {
     public function actionAdd()
     {
         try {
             if (
                 !isset($this->post['title']) ||
-                !isset($this->post['date']) ||
-                !isset($this->post['time']) ||
-                !isset($this->post['linkText']) ||
-                !isset($this->post['linkUrl'])
+                !isset($this->post['description']) ||
+                !isset($this->post['url'])
             ) {
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
             $nation = $this->loginInfo['nation'];
-            $location = isset($this->post['location']) ? $this->post['location'] : "";
-            $topic = isset($this->post['topic']) ? $this->post['topic'] : "";
-            $speaker = isset($this->post['speaker']) ? $this->post['speaker'] : "";
-            $linkDesc = isset($this->post['linkDesc']) ? $this->post['linkDesc'] : "";
-            $content = isset($this->post['content']) ? $this->post['content'] : "";
-
             $id = isset( $this->post['id'] ) ? $this->post['id'] : "";
             if($id == ""){
-                $Model = new NetMeeting();
+                $Model = new File();
             }else{
-                $Model =  NetMeeting::findOne($id);
+                $Model =  File::findOne($id);
                 if( $this->loginInfo['role'] == 1 || $Model->nation == $this->loginInfo['nation']){
                 }else{
                     throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
@@ -43,19 +36,12 @@ class NetMeetingController extends MyController
 
             $postData = array(
                 'title' => $this->post['title'],
-                'topic' => $topic,
-                'speaker' => $speaker,
-                'content' => $content,
-                'location' => $location,
-                'date' => $this->post['date'],
-                'time' => $this->post['time'],
-                'link_text' => $this->post['linkText'],
-                'link_url' => $this->post['linkUrl'],
-                'link_desc' => $linkDesc,
+                'description' => $this->post['description'],
+                'url' => $this->post['url'],
                 'nation' => $nation,
                 'create_time' => date("Y-m-d H:i:s",time()),
             );
-             $Model->add($postData);
+            $Model->add($postData);
             $this->sendJson();
         } catch (MyException $e) {
             echo $e->toJson($e->getMessage());
@@ -68,7 +54,7 @@ class NetMeetingController extends MyController
      */
     public function actionTableList()
     {
-        $Model = new NetMeeting();
+        $Model = new File();
         $data = $Model->tableList();
         $this->setData($data);
         $this->sendJson();
@@ -89,7 +75,7 @@ class NetMeetingController extends MyController
             $this->get['title'] = isset($this->get['title']) ? $this->get['title'] : "";
             $this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
 
-            $Model = new NetMeeting();
+            $Model = new File();
             $data = $Model->tablePage($this->get);
             $count = $Model->tableCount($this->get);
             $this->setData($data);
@@ -117,14 +103,14 @@ class NetMeetingController extends MyController
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
             //首先得判断是否有权限操作
-            $obj = NetMeeting::findOne($this->get['id']);
+            $obj = File::findOne($this->get['id']);
             if( $this->loginInfo['role'] == 1 || $obj->nation == $this->loginInfo['nation']){
             }else{
                 throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
             }
 
             //删除数据
-            $Model = new NetMeeting();
+            $Model = new File();
             $Model->del($this->get['id']);
             $this->sendJson();
         } catch (MyException $e) {

@@ -15,15 +15,17 @@ class VideoController extends MyController
     {
         try {
             if (
-                !isset($this->post['title']) ||
-                !isset($this->post['menuId']) ||
-                !isset($this->post['description']) ||
-                !isset($this->post['type']) ||
-                !isset($this->post['videoUrl']) ||
-                !isset($this->post['imageUrl'])
+                !isset($this->post['videoUrl'])
             ) {
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
+            $this->post['title'] = isset($this->post['title']) ? $this->post['title'] : "";
+            $this->post['menuId'] = isset($this->post['menuId']) ? $this->post['menuId'] : 0;
+            $this->post['description'] = isset($this->post['description']) ? $this->post['description'] : "";
+            $this->post['type'] = isset($this->post['type']) ? $this->post['type'] : 0;
+            $this->post['videoUrl'] = isset($this->post['videoUrl']) ? $this->post['videoUrl'] : "";
+            $this->post['imageUrl'] = isset($this->post['imageUrl']) ? $this->post['imageUrl'] : "";
+            $this->post['content'] = isset($this->post['content']) ? $this->post['content'] : "";
             $nation = $this->loginInfo['nation'];
             $id = isset($this->post['id']) ? $this->post['id'] : "";
             if ($id == "") {
@@ -46,6 +48,7 @@ class VideoController extends MyController
                 'nation' => $nation,
                 'create_time' => date("Y-m-d H:i:s", time()),
             );
+
             $Model->add($postData);
             $this->sendJson();
         } catch (MyException $e) {
@@ -53,22 +56,26 @@ class VideoController extends MyController
         }
     }
 
-    public function update()
+    public function actionUpdate()
     {
-        if (
-        !isset($this->get['id'])
-        ) {
-            throw new MyException(ErrorCode::ERROR_PARAM);
+        try {
+            if (
+                !isset($this->post['id'])
+            ) {
+                throw new MyException(ErrorCode::ERROR_PARAM);
+            }
+            $Model = Video::findOne($this->post['id']);
+            if ($this->loginInfo['role'] == 1 || $Model->nation == $this->loginInfo['nation']) {
+            } else {
+                throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
+            }
+            $postData = $this->post;
+            unset($postData['token']);
+            $Model->add($postData);
+            $this->sendJson();
+        } catch (MyException $e) {
+            echo $e->toJson($e->getMessage());
         }
-        $Model =  Video::findOne($this->get['id']);
-        if( $this->loginInfo['role'] == 1 || $Model->nation == $this->loginInfo['nation']){
-        }else{
-            throw new MyException(ErrorCode::ERROR_OPERATE_LIMIT);
-        }
-        $postData = $this->get;
-        unset($postData['token']);
-        $Model->add($postData);
-        $this->sendJson();
     }
 
     /**
@@ -95,6 +102,7 @@ class VideoController extends MyController
             }
             $this->get['id'] = isset($this->get['id']) ? $this->get['id'] : "";
             $this->get['menuId'] = isset($this->get['menuId']) ? $this->get['menuId'] : "";
+			$this->get['parentMenuId'] = isset($this->get['parentMenuId']) ? $this->get['parentMenuId'] : "";
             $this->get['type'] = isset($this->get['type']) ? $this->get['type'] : "";
             $this->get['title'] = isset($this->get['title']) ? $this->get['title'] : "";
             $this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
