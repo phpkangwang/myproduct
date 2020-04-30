@@ -49,9 +49,20 @@ class Video extends BaseModel
         if( $postData['id'] != ""){
             $where .= " and id = '{$postData['id']}'";
         }
+		if( $postData['menuId'] != ""){
+			$where .= " and menu_id = '{$postData['menuId']}'";
+		}
         if( $postData['menuId'] != ""){
             $where .= " and menu_id = '{$postData['menuId']}'";
         }
+		if( $postData['parentMenuId'] != ""){
+			//查到这个菜单的所有下级菜单
+			$MenuModel = new Menu();
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuIdArr = array_column($MenuObjs,'id');
+			$inStr = "'" . implode("','", $MenuIdArr) . "'";
+			$where .= " and menu_id in ({$inStr})";
+		}
         if( $postData['type'] != ""){
             $where .= " and type = '{$postData['type']}'";
         }
@@ -76,6 +87,14 @@ class Video extends BaseModel
         if( $postData['menuId'] != ""){
             $where .= " and menu_id = '{$postData['menuId']}'";
         }
+		if( $postData['parentMenuId'] != ""){
+			//查到这个菜单的所有下级菜单
+			$MenuModel = new Menu();
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuIdArr = array_column($MenuObjs,'id');
+			$inStr = "'" . implode("','", $MenuIdArr) . "'";
+			$where .= " and menu_id in ({$inStr})";
+		}
         if( $postData['type'] != ""){
             $where .= " and type = '{$postData['type']}'";
         }

@@ -53,7 +53,6 @@ class MyController extends Controller
 
     public function checkToken()
     {
-    	return true;
         try{
             //部分地址可以不用token
             $route = Yii::$app->requestedRoute;
@@ -71,7 +70,7 @@ class MyController extends Controller
             $obj = $AdminUserModel->findBase($tokenArr['id']);
             //判断当前的token和数据库里面的token是否一致
             if( empty($obj) || $token != $obj['token']  ){
-                throw new MyException(ErrorCode::ERROR_TOKEN);
+                //throw new MyException(ErrorCode::ERROR_TOKEN);
             }
             $this->loginInfo = $obj;
         } catch (MyException $e) {

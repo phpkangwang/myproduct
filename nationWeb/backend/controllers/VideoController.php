@@ -102,6 +102,7 @@ class VideoController extends MyController
             }
             $this->get['id'] = isset($this->get['id']) ? $this->get['id'] : "";
             $this->get['menuId'] = isset($this->get['menuId']) ? $this->get['menuId'] : "";
+			$this->get['parentMenuId'] = isset($this->get['parentMenuId']) ? $this->get['parentMenuId'] : "";
             $this->get['type'] = isset($this->get['type']) ? $this->get['type'] : "";
             $this->get['title'] = isset($this->get['title']) ? $this->get['title'] : "";
             $this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];

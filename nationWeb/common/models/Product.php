@@ -77,40 +77,18 @@ class Product extends BaseModel
         if( $postData['menuId'] != ""){
             $where .= " and menu_id = '{$postData['menuId']}'";
         }
+
+		if( $postData['parentMenuId'] != ""){
+			//查到这个菜单的所有下级菜单
+			$MenuModel = new Menu();
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuIdArr = array_column($MenuObjs,'id');
+			$inStr = "'" . implode("','", $MenuIdArr) . "'";
+			$where .= " and menu_id in ({$inStr})";
+		}
         return self::find()->joinWith('menu')->where($where)->offset($offset)->limit($limit)->orderBy('id desc')->asArray()->all();
     }
 
-	/**
-	 * 查询详情，如果有菜单，就把下级菜单显示出来
-	 * @param $id
-	 * @return array
-	 * Administrator 2020/4/30 20:03
-	 */
-    public function findInfo($id)
-	{
-		try {
-			$productArr = array();
-			$obj = self::find()->where(['id'=>$id])->asArray()->one();
-			array_push($productArr, $obj);
-			if( $obj == ""){
-				throw new MyException( ErrorCode::ERROR_OBJ );
-			}
-			if( $obj['menu_id'] != ""){
-				//查到这个菜单的所有下级菜单
-				$MenuModel = new Menu();
-				$MenuObjs = $MenuModel->findByParentId($obj['menu_id']);
-				$sonMenuIdArr = array_column($MenuObjs,'id');
-				if(!empty($sonMenuIdArr)){
-					$sonProduct = self::find()->where(['in','menu_id',$sonMenuIdArr])->andWhere(['nation'=>$obj['nation']])->asArray()->all();
-					$productArr = array_merge($productArr,$sonProduct);
-				}
-			}
-			return $productArr;
-		} catch ( MyException $e ) {
-			echo $e->toJson( $e->getMessage() );
-		}
-
-	}
 
     /**
      *  获取最大条数
@@ -141,6 +119,15 @@ class Product extends BaseModel
         if( $postData['menuId'] != ""){
             $where .= " and menu_id = '{$postData['menuId']}'";
         }
+
+		if( $postData['parentMenuId'] != ""){
+			//查到这个菜单的所有下级菜单
+			$MenuModel = new Menu();
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuIdArr = array_column($MenuObjs,'id');
+			$inStr = "'" . implode("','", $MenuIdArr) . "'";
+			$where .= " and menu_id in ({$inStr})";
+		}
         return self::find()->where($where)->count();
     }
 }

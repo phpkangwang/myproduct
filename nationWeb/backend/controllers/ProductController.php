@@ -120,20 +120,6 @@ class ProductController extends MyController
 		$this->sendJson();
 	}
 
-	public function actionFindInfo()
-	{
-		try {
-			if ( !isset( $this->get['id'] ) ) {
-				throw new MyException( ErrorCode::ERROR_PARAM );
-			}
-			$ProductModel = new Product();
-			$data = $ProductModel->findInfo($this->get['id']);
-			$this->setData( $data );
-			$this->sendJson();
-		} catch ( MyException $e ) {
-			echo $e->toJson( $e->getMessage() );
-		}
-	}
 
 	//分页获取数据
 	public function actionPage()
@@ -148,6 +134,7 @@ class ProductController extends MyController
 			$this->get['id'] = isset( $this->get['id'] ) ? $this->get['id'] : "";
 			$this->get['name'] = isset( $this->get['name'] ) ? $this->get['name'] : "";
 			$this->get['menuId'] = isset( $this->get['menuId'] ) ? $this->get['menuId'] : "";
+			$this->get['parentMenuId'] = isset($this->get['parentMenuId']) ? $this->get['parentMenuId'] : "";
 			$this->get['shelve'] = isset( $this->get['shelve'] ) ? $this->get['shelve'] : "";
 			$this->get['recommend'] = isset( $this->get['recommend'] ) ? $this->get['recommend'] : "";
 			$this->get['nation'] = isset( $this->get['nation'] ) ? $this->get['nation'] : $this->loginInfo['nation'];
