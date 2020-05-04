@@ -47,15 +47,15 @@ class WebFoot extends BaseModel
         $offset   = ($pageNo-1)*$pageSize;
         $where = " 1";
 
-        if( $postData['id'] != ""){
+        if( isset($postData['id']) && $postData['id'] != ""){
             $where .= " and id = '{$postData['id']}'";
         }
 
-        if( $postData['section'] != ""){
+        if( isset($postData['section']) && $postData['section'] != ""){
             $where .= " and section = '{$postData['section']}'";
         }
 
-        if( $postData['nation'] != ""){
+        if( isset($postData['nation']) && $postData['nation'] != ""){
             $where .= " and nation = '{$postData['nation']}'";
         }
 
@@ -69,17 +69,17 @@ class WebFoot extends BaseModel
     {
         $where = " 1";
 
-        if( $postData['id'] != ""){
-            $where .= " and id = '{$postData['id']}'";
-        }
+		if( isset($postData['id']) && $postData['id'] != ""){
+			$where .= " and id = '{$postData['id']}'";
+		}
 
-        if( $postData['section'] != ""){
-            $where .= " and section = '{$postData['section']}'";
-        }
+		if( isset($postData['section']) && $postData['section'] != ""){
+			$where .= " and section = '{$postData['section']}'";
+		}
 
-        if( $postData['nation'] != ""){
-            $where .= " and nation = '{$postData['nation']}'";
-        }
+		if( isset($postData['nation']) && $postData['nation'] != ""){
+			$where .= " and nation = '{$postData['nation']}'";
+		}
         return self::find()->where($where)->count();
     }
 }

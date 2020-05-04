@@ -47,13 +47,13 @@ class File extends BaseModel
 		$limit = $pageSize;
 		$offset = ( $pageNo - 1 ) * $pageSize;
 		$where = " 1";
-		if ( $postData['id'] != "" ) {
+		if ( isset($postData['id']) && $postData['id'] != "" ) {
 			$where .= " and id = '{$postData['id']}'";
 		}
-		if ( $postData['title'] != "" ) {
+		if ( isset($postData['title']) && $postData['title'] != "" ) {
 			$where .= " and title like '%{$postData['title']}%'";
 		}
-		if ( $postData['nation'] != "" ) {
+		if ( isset($postData['nation']) && $postData['nation'] != "" ) {
 			$where .= " and nation = '{$postData['nation']}'";
 		}
 		return self::find()->where( $where )->offset( $offset )->limit( $limit )->orderBy( 'id desc' )->asArray()->all();
@@ -65,13 +65,13 @@ class File extends BaseModel
 	public function tableCount( $postData )
 	{
 		$where = " 1";
-		if ( $postData['id'] != "" ) {
+		if ( isset($postData['id']) && $postData['id'] != "" ) {
 			$where .= " and id = '{$postData['id']}'";
 		}
-		if ( $postData['title'] != "" ) {
+		if ( isset($postData['title']) && $postData['title'] != "" ) {
 			$where .= " and title like '%{$postData['title']}%'";
 		}
-		if ( $postData['nation'] != "" ) {
+		if ( isset($postData['nation']) && $postData['nation'] != "" ) {
 			$where .= " and nation = '{$postData['nation']}'";
 		}
 		return self::find()->where( $where )->count();

@@ -19,7 +19,7 @@ class AdminNation extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%admin_nation}}';
+        return 'admin_nation';
     }
 
     /**

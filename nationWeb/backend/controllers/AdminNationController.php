@@ -102,4 +102,5 @@ class AdminNationController extends MyController
 		}
 		$this->sendJson();
 	}
+
 }

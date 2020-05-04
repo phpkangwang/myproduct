@@ -5,7 +5,7 @@
         "description": "",
         "version": "1.0.0"
     },
-    "host": "127.0.0.1/nationWeb",
+    "host": "127.0.0.1/myproduct/nationWeb",
     "schemes": [
         "http"
     ],

@@ -54,31 +54,31 @@ class Product extends BaseModel
         $limit    = $pageSize;
         $offset   = ($pageNo-1)*$pageSize;
         $where = " 1";
-        if( $postData['id'] != ""){
+        if( isset($postData['id']) && $postData['id'] != ""){
             $where .= " and product.id = '{$postData['id']}'";
         }
 
-        if( $postData['name'] != ""){
+        if( isset($postData['name']) && $postData['name'] != ""){
             $where .= " and product.name like '%{$postData['name']}%'";
         }
 
-        if( $postData['shelve'] != ""){
+        if( isset($postData['shelve']) && $postData['shelve'] != ""){
             $where .= " and product.shelve = '{$postData['shelve']}'";
         }
 
-        if( $postData['recommend'] != ""){
+        if( isset($postData['recommend']) && $postData['recommend'] != ""){
             $where .= " and product.recommend = '{$postData['recommend']}'";
         }
 
-        if( $postData['nation'] != ""){
+        if( isset($postData['nation']) && $postData['nation'] != ""){
             $where .= " and nation = '{$postData['nation']}'";
         }
 
-        if( $postData['menuId'] != ""){
+        if( isset($postData['menuId']) && $postData['menuId'] != ""){
             $where .= " and menu_id = '{$postData['menuId']}'";
         }
 
-		if( $postData['parentMenuId'] != ""){
+		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
 			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
@@ -101,31 +101,31 @@ class Product extends BaseModel
     public function tableCount($postData)
     {
         $where = " 1";
-        if( $postData['id'] != ""){
-            $where .= " and id = '{$postData['id']}'";
-        }
+		if( isset($postData['id']) && $postData['id'] != ""){
+			$where .= " and product.id = '{$postData['id']}'";
+		}
 
-        if( $postData['name'] != ""){
-            $where .= " and product.name like '%{$postData['name']}%'";
-        }
+		if( isset($postData['name']) && $postData['name'] != ""){
+			$where .= " and product.name like '%{$postData['name']}%'";
+		}
 
-        if( $postData['shelve'] != ""){
-            $where .= " and product.shelve = '{$postData['shelve']}'";
-        }
+		if( isset($postData['shelve']) && $postData['shelve'] != ""){
+			$where .= " and product.shelve = '{$postData['shelve']}'";
+		}
 
-        if( $postData['recommend'] != ""){
-            $where .= " and product.recommend = '{$postData['recommend']}'";
-        }
+		if( isset($postData['recommend']) && $postData['recommend'] != ""){
+			$where .= " and product.recommend = '{$postData['recommend']}'";
+		}
 
-        if( $postData['nation'] != ""){
-            $where .= " and nation = '{$postData['nation']}'";
-        }
+		if( isset($postData['nation']) && $postData['nation'] != ""){
+			$where .= " and nation = '{$postData['nation']}'";
+		}
 
-        if( $postData['menuId'] != ""){
-            $where .= " and menu_id = '{$postData['menuId']}'";
-        }
+		if( isset($postData['menuId']) && $postData['menuId'] != ""){
+			$where .= " and menu_id = '{$postData['menuId']}'";
+		}
 
-		if( $postData['parentMenuId'] != ""){
+		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
 			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);

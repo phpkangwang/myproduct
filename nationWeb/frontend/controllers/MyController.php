@@ -14,6 +14,7 @@ class MyController extends Controller
 {
     public $post;
     public $get;
+    public $dataModel;
     /**
      * @var array 存放用户登录信息
      */
@@ -38,10 +39,9 @@ class MyController extends Controller
      * @var array
      */
     private $NoAccessLimit = [
-        'user/register',
-        'user/password-change',
-        'user/login',
-        'user/contact-us-add',
+        'education/shape-base-add',
+        'user/update-token',
+        'user/user-info',
     ];
 
     public function __construct($id,  $module,  $config = [])
@@ -59,7 +59,7 @@ class MyController extends Controller
         try{
             //部分地址可以不用token
             $route = Yii::$app->requestedRoute;
-            if( in_array($route, $this->NoAccessLimit))
+            if( !in_array($route, $this->NoAccessLimit))
             {
                 return true;
             }
@@ -110,4 +110,61 @@ class MyController extends Controller
         );
         die;
     }
+
+    public function actionTableList()
+	{
+		$data = $this->dataModel->tableList();
+		$this->setData( $data );
+		$this->sendJson();
+	}
+
+	//分页获取数据
+	public function actionPage()
+	{
+		try {
+			if (
+				!isset($this->get['pageNo']) ||
+				!isset($this->get['pageSize'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
+
+			$data = $this->dataModel->tablePage($this->get);
+			foreach ($data as $key=>$val){
+				foreach ($val as $k=>$v){
+					if($k == "content" || $k == "description"){
+						$data[$key][$k] = mb_substr($v, 0, 100);
+					}
+				}
+			}
+			$count = $this->dataModel->tableCount($this->get);
+			$this->setData($data);
+			$this->setPage(array(
+				'pageNo' => $this->get['pageNo'],
+				'maxPage' => ceil($count / $this->get['pageSize']),
+				'count' => $count,
+			));
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
+
+	//分页获取数据
+	public function actionFindObj()
+	{
+		try {
+			if (
+				!isset($this->get['id'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$data = $this->dataModel->findBase($this->get['id']);
+			$this->setData($data);
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
 }

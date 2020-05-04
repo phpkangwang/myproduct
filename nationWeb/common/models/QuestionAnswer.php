@@ -52,13 +52,13 @@ class QuestionAnswer extends BaseModel
         $limit    = $pageSize;
         $offset   = ($pageNo-1)*$pageSize;
         $where = " 1";
-        if( $postData['question'] != ""){
+        if( isset($postData['question']) && $postData['question'] != ""){
             $where .= " and question like '%{$postData['question']}%'";
         }
-        if( $postData['answer'] != ""){
+        if( isset($postData['answer']) && $postData['answer'] != ""){
             $where .= " and answer like '%{$postData['answer']}%'";
         }
-        if( $postData['nation'] != ""){
+        if( isset($postData['nation']) && $postData['nation'] != ""){
             $where .= " and nation = '{$postData['nation']}'";
         }
         return self::find()->where($where)->offset($offset)->limit($limit)->orderBy('id desc')->asArray()->all();
@@ -70,15 +70,15 @@ class QuestionAnswer extends BaseModel
     public function tableCount($postData)
     {
         $where = " 1";
-        if( $postData['question'] != ""){
-            $where .= " and question like '%{$postData['question']}%'";
-        }
-        if( $postData['answer'] != ""){
-            $where .= " and answer like '%{$postData['answer']}%'";
-        }
-        if( $postData['nation'] != ""){
-            $where .= " and nation = '{$postData['nation']}'";
-        }
+		if( isset($postData['question']) && $postData['question'] != ""){
+			$where .= " and question like '%{$postData['question']}%'";
+		}
+		if( isset($postData['answer']) && $postData['answer'] != ""){
+			$where .= " and answer like '%{$postData['answer']}%'";
+		}
+		if( isset($postData['nation']) && $postData['nation'] != ""){
+			$where .= " and nation = '{$postData['nation']}'";
+		}
         return self::find()->where($where)->count();
     }
 }

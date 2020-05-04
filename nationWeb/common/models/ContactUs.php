@@ -19,7 +19,7 @@ class ContactUs extends BaseModel
      */
     public static function tableName()
     {
-        return '{{%contact_us}}';
+        return 'contact_us';
     }
 
     /**
