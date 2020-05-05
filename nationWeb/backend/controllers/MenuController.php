@@ -23,7 +23,7 @@ class MenuController extends MyController
             $postData['parent_id'] = $this->post['parentId'];
             $postData['name'] = $this->post['name'];
             $postData['path_name'] = $this->post['pathName'];
-			$postData['activeName'] = $this->post['activeName'];
+			$postData['active_name'] = isset( $this->post['activeName'] ) ? $this->post['activeName'] : "";
             $postData['image_url'] = isset( $this->post['imageUrl'] ) ? $this->post['imageUrl'] : "";
             $postData['path'] = isset( $this->post['path'] ) ? $this->post['path'] : "";
             $postData['alias'] = isset( $this->post['alias'] ) ? $this->post['alias'] : "";
