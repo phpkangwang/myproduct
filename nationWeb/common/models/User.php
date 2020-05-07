@@ -46,6 +46,7 @@ class User extends BaseModel
         foreach ($data as $key=>$val){
             $this->$key = $val;
         }
+        $this->create_time = date("Y-m-d H:i:s",time());
         if( $this->save()){
             return $this;
         }else{
@@ -82,4 +83,46 @@ class User extends BaseModel
 
     }
 
+
+	/**
+	 * 分页
+	 * @return array
+	 */
+	public function tablePage( $postData )
+	{
+		$pageNo = $postData['pageNo'] < 1 ? 1 : $postData['pageNo'];
+		$pageSize = $postData['pageSize'] < 1 || $postData['pageSize'] > 100 ? 8 : $postData['pageSize'];//默认一页8条数据
+		$limit = $pageSize;
+		$offset = ( $pageNo - 1 ) * $pageSize;
+		$where = " 1";
+
+		if ( isset($postData['id']) && $postData['id'] != "" ) {
+			$where .= " and id = '{$postData['id']}'";
+		}
+
+		if ( isset($postData['name']) && $postData['name'] != "" ) {
+			$where .= " and name = '{$postData['name']}'";
+		}
+
+		return self::find()->where( $where )->offset( $offset )->limit( $limit )->orderBy( 'id desc' )->asArray()->all();
+	}
+
+	/**
+	 * 获取最大条数
+	 * @param $postData
+	 * @return bool|int|string|null
+	 */
+	public function tableCount( $postData )
+	{
+		$where = " 1";
+
+		if ( isset($postData['id']) && $postData['id'] != "" ) {
+			$where .= " and id = '{$postData['id']}'";
+		}
+
+		if ( isset($postData['name']) && $postData['name'] != "" ) {
+			$where .= " and name = '{$postData['name']}'";
+		}
+		return self::find()->where( $where )->count();
+	}
 }

@@ -66,7 +66,7 @@ class ProductController extends MyController
 			} else {
 				throw new MyException( ErrorCode::ERROR_OPERATE_LIMIT );
 			}
-			$postData = $this->get;
+			$postData = $this->post;
 			unset( $postData['token'] );
 			$Model->add( $postData );
 			$this->sendJson();

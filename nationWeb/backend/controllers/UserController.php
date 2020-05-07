@@ -31,6 +31,37 @@ class UserController extends MyController
         $this->sendJson();
     }
 
+	//分页获取数据
+	public function actionPage()
+	{
+		try {
+			if (
+				!isset($this->get['pageNo']) ||
+				!isset($this->get['pageSize'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
+			$this->get['nick_name'] = isset($this->get['nickName']) ? $this->get['nickName'] : "";
+
+			$Model = new AdminUser();
+			$data = $Model->tablePage($this->get);
+			$count = $Model->tableCount($this->get);
+			foreach ($data as $key => $val){
+				unset($data[$key]['password'],$data[$key]['token']);
+			}
+			$this->setData($data);
+			$this->setPage(array(
+				'pageNo' => $this->get['pageNo'],
+				'maxPage' => ceil($count / $this->get['pageSize']),
+				'count' => $count,
+			));
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
+
     /**
      *   用户注册
      */
@@ -68,10 +99,7 @@ class UserController extends MyController
     {
         try {
             if (
-                !isset($this->post['id']) ||
-                !isset($this->post['name']) ||
-                !isset($this->post['nickName']) ||
-                !isset($this->post['role'])
+                !isset($this->post['id'])
             ) {
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
@@ -79,11 +107,22 @@ class UserController extends MyController
             if( empty($Obj)){
                 throw new MyException(ErrorCode::ERROR_OBJ);
             }
-            $postData = array(
-                'name' => $this->post['name'],
-                'nick_name' => $this->post['nickName'],
-                'role' => $this->post['role'],
-            );
+            $postData = array();
+            if( isset($this->post['name']) ){
+				$postData['name'] = $this->post['name'];
+			}
+			if( isset($this->post['nickName']) ){
+				$postData['nick_name'] = $this->post['nickName'];
+			}
+			if( isset($this->post['password']) ){
+				$postData['password'] = $this->post['password'];
+			}
+			if( isset($this->post['role']) ){
+				$postData['role'] = $this->post['role'];
+			}
+			if( isset($this->post['nation']) ){
+				$postData['nation'] = $this->post['nation'];
+			}
             $Obj->add($postData);
             $this->sendJson();
         } catch (MyException $e) {
@@ -163,7 +202,6 @@ class UserController extends MyController
         $this->setData($obj);
         $this->sendJson();
     }
-
 
     private $FilePath = "image";
     /**

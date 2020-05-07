@@ -6,6 +6,7 @@ use common\models\AdminNation;
 use common\models\DentalExhibition;
 use common\models\ErrorCode;
 use common\models\File;
+use common\models\Menu;
 use common\models\MyException;
 use common\models\NetMeeting;
 use common\models\News;
@@ -87,6 +88,7 @@ class AdminNationController extends MyController
 	public function actionCopyDefaultToNation( $nation )
 	{
 		$models = array(
+			new Menu(),
 			new DentalExhibition(),
 			new File(),
 			new NetMeeting(),

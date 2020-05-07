@@ -73,7 +73,7 @@ class BaseModel extends ActiveRecord
 				if( $val != "id"){
 					array_push($insertColumn, $val);
 					if($val == "nation"){
-						array_push($selectColumn, $nation);
+						array_push($selectColumn, "'".$nation."'");
 					}else{
 						array_push($selectColumn, $val);
 					}
