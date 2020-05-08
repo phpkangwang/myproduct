@@ -40,7 +40,7 @@ class Product extends BaseModel
      */
     public function getMenu()
     {
-        return $this->hasOne(Menu::className(), ['id' => 'menu_id'])->select('id,name');
+        return $this->hasOne(Menu::className(), ['uid' => 'menu_id'])->select('id,uid,name');
     }
 
     /**
@@ -71,7 +71,7 @@ class Product extends BaseModel
         }
 
         if( isset($postData['nation']) && $postData['nation'] != ""){
-            $where .= " and nation = '{$postData['nation']}'";
+            $where .= " and product.nation = '{$postData['nation']}' and menu.nation = '{$postData['nation']}' ";
         }
 
         if( isset($postData['menuId']) && $postData['menuId'] != ""){
@@ -81,16 +81,17 @@ class Product extends BaseModel
 		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
-			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId'], $postData['nation']);
 			if( empty($MenuObjs) ){
 				$where .= " and menu_id = {$postData['parentMenuId']}";
 			}else{
-				$MenuIdArr = array_column($MenuObjs,'id');
+				$MenuIdArr = array_column($MenuObjs,'uid');
 				$inStr = "'" . implode("','", $MenuIdArr) . "'";
 				$where .= " and menu_id in ({$inStr})";
 			}
 
 		}
+
         return self::find()->joinWith('menu')->where($where)->offset($offset)->limit($limit)->orderBy('id desc')->asArray()->all();
     }
 
@@ -118,7 +119,7 @@ class Product extends BaseModel
 		}
 
 		if( isset($postData['nation']) && $postData['nation'] != ""){
-			$where .= " and nation = '{$postData['nation']}'";
+			$where .= " and product.nation = '{$postData['nation']}' and menu.nation = '{$postData['nation']}' ";
 		}
 
 		if( isset($postData['menuId']) && $postData['menuId'] != ""){
@@ -128,7 +129,7 @@ class Product extends BaseModel
 		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
-			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId'], $postData['nation']);
 			if( empty($MenuObjs) ){
 				$where .= " and menu_id = {$postData['parentMenuId']}";
 			}else{
@@ -138,6 +139,6 @@ class Product extends BaseModel
 			}
 
 		}
-        return self::find()->where($where)->count();
+        return self::find()->joinWith('menu')->where($where)->count();
     }
 }

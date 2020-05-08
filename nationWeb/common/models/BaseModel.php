@@ -95,4 +95,9 @@ class BaseModel extends ActiveRecord
 		}
 		return true;
 	}
+
+	public function delToNation($nation){
+		self::deleteAll(['nation'=>$nation ]);
+		return true;
+	}
 }

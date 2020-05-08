@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\AccessLog;
 use common\models\ContactUs;
 use common\models\ErrorCode;
 use common\models\MyException;
@@ -153,5 +154,27 @@ class UserController extends MyController
         }
     }
 
+	/**
+	 * 访问日志
+	 * Administrator 2020/5/7 21:45
+	 */
+    public function actionAccessLog()
+	{
+		try {
+			if ( !isset($this->get['ip']) ) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$postData = array(
+				'ip' => $this->get['ip'],
+				'create_time' => date("Y-m-d H:i:s", time())
+			);
+			$AccessLogModel = new AccessLog();
+			$AccessLogModel->add($postData);
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+
+	}
 
 }

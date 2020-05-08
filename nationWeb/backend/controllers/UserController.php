@@ -41,7 +41,7 @@ class UserController extends MyController
 			) {
 				throw new MyException(ErrorCode::ERROR_PARAM);
 			}
-			$this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
+			//$this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
 			$this->get['nick_name'] = isset($this->get['nickName']) ? $this->get['nickName'] : "";
 
 			$Model = new AdminUser();
@@ -162,7 +162,7 @@ class UserController extends MyController
     {
         try {
             $AdminUserModel = new AdminUser();
-            $userObj = $AdminUserModel->findByName($this->loginInfo['id']);
+            $userObj = $AdminUserModel->findByName($this->loginInfo['name']);
             $postData = array(
                 'token' => "",
             );

@@ -105,4 +105,28 @@ class AdminNationController extends MyController
 		$this->sendJson();
 	}
 
+	/**
+	 * 删除这个国家的所有数据
+	 * @param $nation
+	 * Administrator 2020/5/7 20:29
+	 */
+	public function actionDelNationData($nation)
+	{
+		$models = array(
+			new Menu(),
+			new DentalExhibition(),
+			new File(),
+			new NetMeeting(),
+			new News(),
+			new Product(),
+			new QuestionAnswer(),
+			new SinglePage(),
+			new Video(),
+			new WebFoot(),
+		);
+		foreach ($models as $model){
+			$model->delToNation( $nation );
+		}
+		$this->sendJson();
+	}
 }

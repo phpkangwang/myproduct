@@ -58,11 +58,11 @@ class Video extends BaseModel
 		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
-			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId'], $postData['nation']);
 			if( empty($MenuObjs) ){
 				$where .= " and menu_id = {$postData['parentMenuId']}";
 			}else{
-				$MenuIdArr = array_column($MenuObjs,'id');
+				$MenuIdArr = array_column($MenuObjs,'uid');
 				$inStr = "'" . implode("','", $MenuIdArr) . "'";
 				$where .= " and menu_id in ({$inStr})";
 			}
@@ -75,7 +75,7 @@ class Video extends BaseModel
             $where .= " and title like '%{$postData['title']}%'";
         }
         if( isset($postData['nation']) && $postData['nation'] != ""){
-            $where .= " and nation = '{$postData['nation']}'";
+            $where .= " and nation = '{$postData['nation']}' ";
         }
         return self::find()->where($where)->offset($offset)->limit($limit)->orderBy('id desc')->asArray()->all();
     }
@@ -98,11 +98,11 @@ class Video extends BaseModel
 		if( isset($postData['parentMenuId']) && $postData['parentMenuId'] != ""){
 			//查到这个菜单的所有下级菜单
 			$MenuModel = new Menu();
-			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId']);
+			$MenuObjs = $MenuModel->findByParentId($postData['parentMenuId'], $postData['nation']);
 			if( empty($MenuObjs) ){
 				$where .= " and menu_id = {$postData['parentMenuId']}";
 			}else{
-				$MenuIdArr = array_column($MenuObjs,'id');
+				$MenuIdArr = array_column($MenuObjs,'uid');
 				$inStr = "'" . implode("','", $MenuIdArr) . "'";
 				$where .= " and menu_id in ({$inStr})";
 			}

@@ -29,9 +29,11 @@ class MenuController extends MyController
             $postData['alias'] = isset( $this->post['alias'] ) ? $this->post['alias'] : "";
             $postData['out_link'] = isset( $this->post['outLink'] ) ? $this->post['outLink'] : "";
             $postData['sort'] = isset($this->post['sort']) ? $this->post['sort'] : 1;
+			$postData['nation'] = $this->loginInfo['nation'];
             $id = isset( $this->post['id'] ) ? $this->post['id'] : "";
             if($id == ""){
                 $Model = new Menu();
+				$postData['uid'] = $Model->findMaxUid($this->loginInfo['nation']);
             }else{
                 $Model = Menu::findOne($id);
             }
@@ -41,6 +43,33 @@ class MenuController extends MyController
             echo $e->toJson($e->getMessage());
         }
     }
+
+	//分页获取数据
+	public function actionPage()
+	{
+		try {
+			if (
+				!isset($this->get['pageNo']) ||
+				!isset($this->get['pageSize'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$this->get['nation'] = isset($this->get['nation']) ? $this->get['nation'] : $this->loginInfo['nation'];
+
+			$Model = new Menu();
+			$data = $Model->tablePage($this->get);
+			$count = $Model->tableCount($this->get);
+			$this->setData($data);
+			$this->setPage(array(
+				'pageNo' => $this->get['pageNo'],
+				'maxPage' => ceil($count / $this->get['pageSize']),
+				'count' => $count,
+			));
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
 
     /**
      *   获取这个表的所有数据
