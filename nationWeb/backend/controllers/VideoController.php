@@ -110,6 +110,13 @@ class VideoController extends MyController
             $Model = new Video();
             $data = $Model->tablePage($this->get);
             $count = $Model->tableCount($this->get);
+			foreach ($data as $key=>$val){
+				foreach ($val as $k=>$v){
+					if($k == "content" || $k == "description" ){
+						$data[$key][$k] = mb_substr($v, 0, 100);
+					}
+				}
+			}
             $this->setData($data);
             $this->setPage(array(
                 'pageNo' => $this->get['pageNo'],

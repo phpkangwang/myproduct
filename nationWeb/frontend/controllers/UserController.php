@@ -43,7 +43,10 @@ class UserController extends MyController
             if (!isset($this->get['email'])) {
                 throw new MyException(ErrorCode::ERROR_PARAM);
             }
-            $email = $this->get['email'];
+            $email   = $this->get['email'];
+			$job     = isset( $this->get['job'] ) ? $this->get['job'] : "";
+			$country = isset( $this->get['country'] ) ? $this->get['country'] : "";
+			$nick_name   = isset( $this->get['nickName'] ) ? $this->get['nickName'] : "";
             $UserModel = new User();
             $UserObj = $UserModel->findByName($email);
             if( !empty($UserObj)){
@@ -54,6 +57,9 @@ class UserController extends MyController
             $postData = array(
                 'name' => $email,
                 'password' => $password,
+				'job' => $job,
+				'country' => $country,
+				'nick_name' => $nick_name,
             );
             $UserModel->add($postData);
             //发送一封邮件
