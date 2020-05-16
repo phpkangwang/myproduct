@@ -167,14 +167,24 @@ class UserController extends MyController
     public function actionAccessLog()
 	{
 		try {
-			if ( !isset($this->get['ip']) ) {
+			if ( !isset($this->get['ip']) || !isset($this->get['nation']) ) {
 				throw new MyException(ErrorCode::ERROR_PARAM);
 			}
+			//查看今天这个ip是否访问了，如果访问了就不添加记录了
+			$AccessLogModel = new AccessLog();
+			$obj = $AccessLogModel->findByIpDay($this->get['ip'], date("Y-m-d", time()) );
+			if( !empty($obj)){
+				$this->sendJson();
+				return ;
+			}
+
 			$postData = array(
 				'ip' => $this->get['ip'],
-				'create_time' => date("Y-m-d H:i:s", time())
+				'nation' => $this->get['nation'],
+				'create_time' => date("Y-m-d H:i:s", time()),
+				'create_day' => date("Y-m-d", time()),
 			);
-			$AccessLogModel = new AccessLog();
+
 			$AccessLogModel->add($postData);
 			$this->sendJson();
 		} catch (MyException $e) {

@@ -11,6 +11,12 @@ use common\models\Video;
  */
 class VideoController extends MyController
 {
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new Video();
+	}
+
     public function actionAdd()
     {
         try {

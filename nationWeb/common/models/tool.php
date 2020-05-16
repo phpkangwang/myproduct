@@ -168,5 +168,39 @@ class tool extends Model
         echo " window.location.href = '$url' ";
         echo " </script > ";
     }
-    
+
+	/**
+	 * 获取这个月的开始时间和结束时间
+	 * @param $sday
+	 * @param $eday
+	 * @return bool
+	 * Administrator 2020/5/16 20:42
+	 */
+    public static function monthSdayEday(&$sday, &$eday)
+	{
+		$date = date("Y-m-d");
+		$firstday = date('Y-m-01', strtotime($date));
+
+		$sday = date('Y-m-01 00:00:00', strtotime($date)); //本月第一天
+		$eday = date('Y-m-d 23:59:59', strtotime("$firstday +1 month -1 day")); //本月最后一天
+		return true;
+	}
+
+
+	/**
+	 * 获取上个月的开始时间和结束时间
+	 * @param $sday
+	 * @param $eday
+	 * @return bool
+	 * Administrator 2020/5/16 20:42
+	 */
+	public static function lastMonthSdayEday(&$sday, &$eday)
+	{
+		$date = date("Y-m-d");
+		$firstday = date('Y-m-01', strtotime($date));
+
+		$sday = date('Y-m-01 00:00:00', strtotime("$firstday -1 month")); //上月第一天
+		$eday = date('Y-m-d 23:59:59', strtotime("$firstday  -1 day")); //上月最后一天
+		return true;
+	}
 }

@@ -10,6 +10,12 @@ use common\models\MyException;
  */
 class DentalExhibitionController extends MyController
 {
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new DentalExhibition();
+	}
+
     public function actionAdd()
     {
         try {

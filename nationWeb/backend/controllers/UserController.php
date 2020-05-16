@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\AccessLog;
 use common\models\backend\AdminUser;
 use common\models\ErrorCode;
 use common\models\MyException;
@@ -219,4 +220,27 @@ class UserController extends MyController
         }
         $this->sendJson();
     }
+
+	/**
+	 * 访问信息
+	 * Administrator 2020/5/16 20:51
+	 */
+    public function actionAccessInfo()
+	{
+		try {
+			if (
+			!isset($this->get['sday']) || !isset($this->get['eday'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$sday = $this->get['sday'];
+			$eday = $this->get['eday'];
+			$AccessLogModel = new AccessLog();
+			$data = $AccessLogModel->accessInfo($sday, $eday);
+			$this->setData($data);
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
 }

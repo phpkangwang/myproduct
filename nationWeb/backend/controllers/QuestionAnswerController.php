@@ -11,6 +11,11 @@ use common\models\QuestionAnswer;
  */
 class QuestionAnswerController extends MyController
 {
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new QuestionAnswer();
+	}
 
     /**
      *   获取这个表的所有数据

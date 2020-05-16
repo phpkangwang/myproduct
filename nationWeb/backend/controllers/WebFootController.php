@@ -11,6 +11,12 @@ use common\models\WebFoot;
  */
 class WebFootController extends MyController
 {
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new WebFoot();
+	}
+
     public function actionAdd()
     {
         try {

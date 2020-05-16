@@ -14,6 +14,7 @@ class MyController extends Controller
 {
     public $post;
     public $get;
+	public $dataModel;
     /**
      * @var array 存放用户登录信息
      */
@@ -78,6 +79,23 @@ class MyController extends Controller
         }
 
     }
+
+	//分页获取数据
+	public function actionFindObj()
+	{
+		try {
+			if (
+			!isset($this->get['id'])
+			) {
+				throw new MyException(ErrorCode::ERROR_PARAM);
+			}
+			$data = $this->dataModel->findBase($this->get['id']);
+			$this->setData($data);
+			$this->sendJson();
+		} catch (MyException $e) {
+			echo $e->toJson($e->getMessage());
+		}
+	}
 
     public function setCode($code)
     {

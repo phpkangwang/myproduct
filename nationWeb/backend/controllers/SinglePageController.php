@@ -12,6 +12,12 @@ use common\models\SinglePage;
  */
 class SinglePageController extends MyController
 {
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new SinglePage();
+	}
+
     public function actionAdd()
     {
         try {

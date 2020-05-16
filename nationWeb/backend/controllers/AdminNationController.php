@@ -22,6 +22,12 @@ use common\models\WebFoot;
 class AdminNationController extends MyController
 {
 
+	public function __construct( $id, $module, $config = [] )
+	{
+		parent::__construct( $id, $module, $config );
+		$this->dataModel = new AdminNation();
+	}
+
 	/**
 	 *   获取这个表的所有数据
 	 */
